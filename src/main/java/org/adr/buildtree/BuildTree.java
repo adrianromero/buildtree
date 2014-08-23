@@ -23,7 +23,7 @@ package org.adr.buildtree;
  */
 public class BuildTree {
 
-    public static Node reconstructTree(Relation... relations) {
+    public static Node reconstructTree(int[] ... relations) {
 
         // Create initial structure
         Node[] all = new Node[relations.length + 1];
@@ -33,41 +33,22 @@ public class BuildTree {
         }
 
         // Build tree
-        for (Relation r : relations) {
+        for (int[] r : relations) {
 
             // assign a new root
-            if (root == 0 || r.getChild() == root) {
-                root = r.getParent();
+            if (root == 0 || r[1] == root) {
+                root = r[0];
             }
 
-            Node parentNode = all[r.getParent() - 1];
+            Node parentNode = all[r[0] - 1];
 
             if (parentNode.getChild1() == null) {
-                parentNode.setChild1(all[r.getChild() - 1]);
+                parentNode.setChild1(all[r[1] - 1]);
             } else if (parentNode.getChild2() == null) {
-                parentNode.setChild2(all[r.getChild() - 1]);
+                parentNode.setChild2(all[r[1] - 1]);
             }
         }
 
         return all[root - 1];
-    }
-
-    public static class Relation {
-
-        private final int parent;
-        private final int child;
-
-        public Relation(int parent, int child) {
-            this.parent = parent;
-            this.child = child;
-        }
-
-        public int getParent() {
-            return parent;
-        }
-
-        public int getChild() {
-            return child;
-        }
     }
 }
