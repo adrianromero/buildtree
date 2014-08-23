@@ -17,8 +17,7 @@
 
 package org.adr.buildtree;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
-import org.apache.commons.lang.builder.HashCodeBuilder;
+import java.util.Objects;
 
 /**
  *
@@ -62,28 +61,35 @@ public class Node {
     }
 
     @Override
-    public int hashCode() {
-        return new HashCodeBuilder()
-                .append(value)
-                .append(child1)
-                .append(child2)
-                .toHashCode();
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Node other = (Node) obj;
+        if (this.value != other.value) {
+            return false;
+        }
+        if (!Objects.equals(this.child1, other.child1)) {
+            return false;
+        }
+        if (!Objects.equals(this.child2, other.child2)) {
+            return false;
+        }
+        return true;
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (obj instanceof Node) {
-            final Node other = (Node) obj;
-            return new EqualsBuilder()
-                    .append(value, other.value)
-                    .append(child1, other.child1)
-                    .append(child2, other.child2)
-                    .isEquals();
-        } else {
-            return false;
-        }
+    public int hashCode() {
+        int hash = 3;
+        hash = 17 * hash + this.value;
+        hash = 17 * hash + Objects.hashCode(this.child1);
+        hash = 17 * hash + Objects.hashCode(this.child2);
+        return hash;
     }
-    
+
     @Override
     public String toString() {
         String str1 = child1 == null ? "_" : child1.toString();
