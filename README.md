@@ -3,11 +3,20 @@ BuildTree
 
 BuildTree is an academic exercise that builds trees out of node relations.
 
-* Approach: The BuilderTree class contains a Map with all the nodes of the tree and a reference to the root or one of the root nodes at any moment. When a relation of this tree is added: a parent and a child, Both nodes are search in the Map and the relation is established. The reference to the root node is updated to the parent node if the child node was the previous root node.
+* Assumptions: 
+** Considering the tree has n nodes, to build a valid tree, the number of relations passed must be n-1. 
+** All node values must go in one and only on of the relations passed as the child node, except the root node.
+** In all relations, a node value must not appear more than twice as a parent. i.e. The 
+** The tree is complete with no isolated subtrees.
+** values are [1 .. n].
 
-* Complexity: If not considering the use of a hash map for storing nodes, the complexity of adding a new relation is constant O(1), because it does not depend on the number of nodes previously added.
+* Approach: The constructTree() method creates an array for all the nodes. Then it is just a matter of going through all relations to build the tree adding relations.
 
-* Structures: Node. Represents a node in the tree. BuildTree.Relation. Represents a relation between nodes.
+* Complexity:
+The time complexity of generating a tree is O(n), because it is linear on the number of relations.
+
+* Structures: 
+** Node. Represents a node in the tree. A tree is just a reference to the root node,
 
 License
 =======
