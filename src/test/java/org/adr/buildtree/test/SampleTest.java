@@ -19,7 +19,6 @@ package org.adr.buildtree.test;
 
 import junit.framework.Assert;
 import org.adr.buildtree.BuildTree;
-import org.adr.buildtree.BuildTreeException;
 import org.adr.buildtree.Node;
 import org.junit.Test;
 
@@ -30,7 +29,7 @@ import org.junit.Test;
 public class SampleTest {
 
     @Test
-    public void buildSampleTree() throws BuildTreeException {
+    public void buildSampleTree() {
         
         // Build the tree using BuildTree static method
         Node tree = BuildTree.reconstructTree(
