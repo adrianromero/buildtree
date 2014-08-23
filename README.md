@@ -7,7 +7,7 @@ BuildTree is an academic exercise that builds trees out of node relations.
 
 * Complexity: If not considering the use of a hash map for storing nodes, the complexity of adding a new relation is constant O(1), because it does not depend on the number of nodes previously added.
 
-* Structures: Node. Represents a node in the tree. 
+* Structures: Node. Represents a node in the tree. BuildTree.Relation. Represents a relation between nodes.
 
 License
 =======
