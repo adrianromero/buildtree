@@ -33,11 +33,11 @@ public class SampleTest {
         
         // Build the tree using BuildTree static method
         Node tree = BuildTree.reconstructTree(
-                new BuildTree.Relation(2, 4),
-                new BuildTree.Relation(1, 2),
-                new BuildTree.Relation(3, 6),
-                new BuildTree.Relation(1, 3),
-                new BuildTree.Relation(2, 5));
+                new int[]{2, 4},
+                new int[]{1, 2},
+                new int[]{3, 6},
+                new int[]{1, 3},
+                new int[]{2, 5});
         
         Assert.assertEquals(getExpectedTree(), tree);
     }
