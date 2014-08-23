@@ -17,60 +17,51 @@
 
 package org.adr.buildtree;
 
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  *
  * @author adrian
  */
 public class BuildTree {
 
-    private final Map<Integer, Node> allnodes = new HashMap<Integer, Node>();
-    private Node root = null;
-
     public static Node reconstructTree(Relation... relations) throws BuildTreeException {
-        
-        BuildTree builder = new BuildTree();
+
+        // Create initial structure
+        Node[] all = new Node[relations.length + 1];
+        int root = 0;
+        for (int i = 0; i < all.length; i++) {
+            all[i] = new Node(i + 1);
+        }
+
+        // Build tree
         for (Relation r : relations) {
-            builder.addRelation(r.getParent(), r.getChild());            
-        }
-        return builder.getRoot();
-    }
 
-    public Node getRoot() {
-        return root;
-    }
+            // Sanity check for input
+            if (r.getParent() <= 0 || r.getParent() > all.length
+                    || r.getChild() < 0 || r.getChild() > all.length) {
+                throw new BuildTreeException("Relation nodes does not exist in tree.");
+            }
 
-    public void addRelation(int parent, int child) throws BuildTreeException {
-        
-        Node parentNode = findNode(parent);
-        Node childNode = findNode(child);
-        
-        if (root == null || childNode == root) {
-            root = parentNode;
+            // assign a new root
+            if (root == 0 || r.getChild() == root) {
+                root = r.getParent();
+            }
+
+            Node parentNode = all[r.getParent() - 1];
+
+            if (parentNode.getChild1() == null) {
+                parentNode.setChild1(all[r.getChild() - 1]);
+            } else if (parentNode.getChild2() == null) {
+                parentNode.setChild2(all[r.getChild() - 1]);
+            } else {
+                throw new BuildTreeException("Nodes cannot have more than two children.");
+            }
         }
-        
-        if (parentNode.getChild1() == null) {
-            parentNode.setChild1(childNode);
-            return;
+
+        if (root == 0) {
+            throw new BuildTreeException("Tree has no nodes.");
         }
-        
-        if (parentNode.getChild2() == null) {
-            parentNode.setChild2(childNode);
-            return;
-        }
-        
-        throw new BuildTreeException("Nodes cannot have more than two children.");  
-    }
-    
-    private Node findNode(int value) {
-        Node n = allnodes.get(value);
-        if (n == null) {
-            n = new Node(value);
-            allnodes.put(value, n);
-        }
-        return n;
+
+        return all[root - 1];
     }
 
     public static class Relation {

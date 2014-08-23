@@ -32,21 +32,6 @@ public class SampleTest {
     @Test
     public void buildSampleTree() throws BuildTreeException {
         
-        // Build the tree using BuildTree
-        BuildTree builder = new BuildTree();
-        builder.addRelation(2, 4);
-        builder.addRelation(1, 2);
-        builder.addRelation(3, 6);
-        builder.addRelation(1, 3);
-        builder.addRelation(2, 5);
-        Node tree = builder.getRoot();
-        
-        Assert.assertEquals(getExpectedTree(), tree);
-    }
-    
-    @Test
-    public void buildSampleTree2() throws BuildTreeException {
-        
         // Build the tree using BuildTree static method
         Node tree = BuildTree.reconstructTree(
                 new BuildTree.Relation(2, 4),
