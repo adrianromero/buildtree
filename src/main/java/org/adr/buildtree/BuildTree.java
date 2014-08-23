@@ -23,7 +23,7 @@ package org.adr.buildtree;
  */
 public class BuildTree {
 
-    public static Node reconstructTree(Relation... relations) throws BuildTreeException {
+    public static Node reconstructTree(Relation... relations) {
 
         // Create initial structure
         Node[] all = new Node[relations.length + 1];
@@ -34,12 +34,6 @@ public class BuildTree {
 
         // Build tree
         for (Relation r : relations) {
-
-            // Sanity check for input
-            if (r.getParent() <= 0 || r.getParent() > all.length
-                    || r.getChild() < 0 || r.getChild() > all.length) {
-                throw new BuildTreeException("Relation nodes does not exist in tree.");
-            }
 
             // assign a new root
             if (root == 0 || r.getChild() == root) {
@@ -52,13 +46,7 @@ public class BuildTree {
                 parentNode.setChild1(all[r.getChild() - 1]);
             } else if (parentNode.getChild2() == null) {
                 parentNode.setChild2(all[r.getChild() - 1]);
-            } else {
-                throw new BuildTreeException("Nodes cannot have more than two children.");
             }
-        }
-
-        if (root == 0) {
-            throw new BuildTreeException("Tree has no nodes.");
         }
 
         return all[root - 1];
