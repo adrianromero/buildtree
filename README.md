@@ -25,11 +25,13 @@ Generates the following tree
 Assumptions
 -----------
 
-* Considering the tree has n nodes, the number of relations passed must be n-1. 
-* Node values are [1 .. n].
+The method assumes the relations passed builds a valid tree. To build a valid tree the following conditions must be fulfilled:
+
+* Considering the tree has n nodes, node values are [1 .. n]
+* The number of relations passed must be n-1.
+* A relation has type `int[]` and contains 2 elements. The first element is the parent node value, and the second element the child. 
 * All node values must go in one and only on of the relations passed as the child node, except the root node.
-* In all relations, a node value must not appear more than twice as a parent.
-* The method assumes the relations passed builds a valid tree.
+* In all relations, a node value must not appear more than twice as a parent. A noce cannot have more than two children.
 
 Approach
 --------
