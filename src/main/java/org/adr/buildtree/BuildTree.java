@@ -22,6 +22,9 @@ package org.adr.buildtree;
  * @author adrian
  */
 public class BuildTree {
+    
+    private final static int PARENT = 0;
+    private final static int CHILD = 1;
 
     public static Node reconstructTree(int[] ... relations) {
 
@@ -36,16 +39,16 @@ public class BuildTree {
         for (int[] r : relations) {
 
             // assign a new root
-            if (root == 0 || r[1] == root) {
-                root = r[0];
+            if (root == 0 || r[CHILD] == root) {
+                root = r[PARENT];
             }
 
-            Node parentNode = all[r[0] - 1];
+            Node parentNode = all[r[PARENT] - 1];
 
             if (parentNode.getChild1() == null) {
-                parentNode.setChild1(all[r[1] - 1]);
+                parentNode.setChild1(all[r[CHILD] - 1]);
             } else if (parentNode.getChild2() == null) {
-                parentNode.setChild2(all[r[1] - 1]);
+                parentNode.setChild2(all[r[CHILD] - 1]);
             }
         }
 
